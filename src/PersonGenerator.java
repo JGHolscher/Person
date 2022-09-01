@@ -8,13 +8,23 @@ import static java.nio.file.StandardOpenOption.CREATE;
 
 public class PersonGenerator {
     Scanner in = new Scanner(System.in);
+    Calendar c = Calendar.getInstance();
     private String ID;
     private String fName;
+
+    public Person(String ID, String fName, String lName, String title, int YOB) {
+        this.ID = ID;
+        this.fName = fName;
+        this.lName = lName;
+        this.title = title;
+        this.YOB = YOB;
+    }
+
     private String lName;
     private String title;
     private int YOB;
     private int year;
-    Calendar c = Calendar.getInstance();
+
     public String fullName() {
         return fName + " " +lName;
     }
