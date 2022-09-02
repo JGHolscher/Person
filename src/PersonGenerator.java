@@ -1,82 +1,158 @@
-import java.io.*;
+import javax.swing.*;
+        import java.io.*;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.*;
+import java.util.ArrayList;
+        import java.util.Scanner;
 
 import static java.nio.file.StandardOpenOption.CREATE;
 
 public class PersonGenerator {
+    public static void main(String[] args) {
+        JFileChooser chooser = new JFileChooser();
+        String ID = "";
+        String fName = "";
+        String lName = "";
+        String title = "";
 
-    //Calendar c = Calendar.getInstance();
-    String ID;
-    String fName;
-    String lName;
-    String title;
-    int YOB;
-    private int year;
-    static private int startSeed = 1;
+        String fileName = "";
+        boolean more = true;
+        Scanner fileNamein = new Scanner(System.in);
 
-    public static void setStartSeed(int startSeed) {PersonGenerator.startSeed = startSeed;}
-    public static int getStartSeed() {return startSeed;}
+        ArrayList<Person> People = new ArrayList<Person>();
 
-    public PersonGenerator(String ID, String fName, String lName, String title, int YOB) {
-        this.ID = ID;
-        this.fName = fName;
-        this.lName = lName;
-        this.title = title;
-        this.YOB = YOB;
-    }
+        // User enter Persons information
+        do {
+            Scanner in = new Scanner(System.in);
 
-    public String getID() {
-        return ID;
-    }
 
-    public void setID(String ID) {
-        this.ID = ID;
-    }
+            ID = SafeInput.getNonZeroLenString(in, "Please enter ID Number") + ", ";
+            //p += ID;
 
-    public String getfName() {
-        return fName;
-    }
+            fName = SafeInput.getNonZeroLenString(in, "Please enter First Name") + ", ";
+           // p += fName;
 
-    public void setfName(String fName) {
-        this.fName = fName;
-    }
+            lName = SafeInput.getNonZeroLenString(in, "Please enter Last Name") + ", ";
+            //p += lName;
 
-    public String getlName() {
-        return lName;
-    }
 
-    public void setlName(String lName) {
-        this.lName = lName;
-    }
+            title = SafeInput.getNonZeroLenString(in, "Please enter persons Title (Mr., Mrs., Ms., Dr., etc.)") + ", ";
+            //p += title;
 
-    public String getTitle() {
-        return title;
-    }
+            int YOB = SafeInput.getRangedInt(in, "Please enter persons Birth Year", 1940, 2000);
+            //p += YOB;
 
-    public void setTitle(String title) {
-        this.title = title;
-    }
+            Person p = new Person(ID, fName, lName, title, YOB);
 
-    public int getYOB() {
-        return YOB;
-    }
+            more = SafeInput.getYNConfirm(in, "Would you like to enter another Person");
+        }while(more);
 
-    public void setYOB(int YOB) {
-        this.YOB = YOB;
-    }
+        File workingDirectory = new File(System.getProperty("user.dir"));
+        fileName = SafeInput.getNonZeroLenString(fileNamein, "Please enter file name");
+        Path file = Paths.get(workingDirectory.getPath() + "//src//"+fileName+".txt");
 
-    @Override
-    public String toString() {
-        return "PersonGenerator{" +
-                "ID='" + ID + '\'' +
-                ", fName='" + fName + '\'' +
-                ", lName='" + lName + '\'' +
-                ", title='" + title + '\'' +
-                ", YOB=" + YOB +
-                ", year=" + year +
-                '}';
+        try
+        {
+            FileWriter writer = new FileWriter(fileName+".txt");
+
+            OutputStream out =
+                    new BufferedOutputStream(Files.newOutputStream(file, CREATE));
+            BufferedWriter writer =
+                    new BufferedWriter(new OutputStreamWriter(out));
+
+
+            for(Person per : People ) {
+                //writer.write(per.toCSVDataRecord());
+                //writer.write(person, 0, person.length());
+                writer.newLine();
+            }
+            
+            writer.close();
+            System.out.println("Data file written:" + fileName + ".csv");
+        }
+        catch (IOException e)
+        {
+            e.printStackTrace();
+        }
     }
 }
+/*import javax.swing.*;
+        import java.io.*;
+import java.util.ArrayList;
+        import java.util.Scanner;
+
+public class PersonGenerator {
+    public static void main(String[] args) {
+        BufferedReader read = new BufferedReader(new InputStreamReader(System.in));
+        JFileChooser chooser = new JFileChooser();
+        String ID = "";
+        String fName = "";
+        String lName = "";
+        String title = "";
+
+        String fileName = "";
+        boolean more = true;
+        Scanner fileNamein = new Scanner(System.in);
+
+        ArrayList<Person> People = new ArrayList<Person>();
+
+        // User enter Persons information
+       // do {
+            Scanner in = new Scanner(System.in);
+
+
+            ID = SafeInput.getNonZeroLenString(in, "Please enter ID Number") + ", ";
+           ID = read.readLine();
+            //p += ID;
+
+            fName = SafeInput.getNonZeroLenString(in, "Please enter First Name") + ", ";
+            fName = read.readLine();
+            //p += fName;
+
+            lName = SafeInput.getNonZeroLenString(in, "Please enter Last Name") + ", ";
+            lName = read.readLine();
+            //p += lName;
+
+
+            title = SafeInput.getNonZeroLenString(in, "Please enter persons Title (Mr., Mrs., Ms., Dr., etc.)") + ", ";
+            title = read.readLine();
+            //p += title;
+
+            int YOB = SafeInput.getRangedInt(in, "Please enter persons Birth Year",1960, 2000);
+            YOB = Integer.parseInt(read.readLine());
+            //p += YOB;
+            //Person.add(p);
+            Person p = new Person(ID, fName, lName, title, YOB);
+
+            more = SafeInput.getYNConfirm(in, "Would you like to enter another Person");
+       // }while(more);
+
+        //File workingDirectory = new File(System.getProperty("user.dir"));
+        fileName = SafeInput.getNonZeroLenString(fileNamein, "Please enter file name");
+        //Path file = Paths.get(workingDirectory.getPath() + "//src//"+fileName+".csv");
+
+        try
+        {
+            FileWriter writer = new FileWriter(fileName+".csv", more);
+           // OutputStream out =
+              //     new BufferedOutputStream(Files.newOutputStream(file, CREATE));
+         //   BufferedWriter writer =
+             //       new BufferedWriter(new OutputStreamWriter(out));
+
+
+            for(Person p2 : People ) {
+                writer.write(p2.toCSVDataRecord());
+            }
+
+            writer.close();
+            System.out.println("Data file written:" + fileName + ".csv");
+        }
+        catch (IOException e)
+        {
+            e.printStackTrace();
+        }
+    }
+}
+
+ */

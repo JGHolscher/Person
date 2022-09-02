@@ -1,82 +1,100 @@
-import javax.swing.*;
-import java.io.*;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
-import java.util.ArrayList;
-import java.util.Scanner;
-
-import static java.nio.file.StandardOpenOption.CREATE;
+import java.util.*;
 
 public class Person {
-    public static void main(String[] args) {
-        JFileChooser chooser = new JFileChooser();
-        String ID = "";
-        String fName = "";
-        String lName = "";
-        String title = "";
+    String ID = "";
+    String fName = "";
+    String lName = "";
+    String title = "";
+    int YOB = 0;
+    private static int startSeed = 0;
 
-        String fileName = "";
-        boolean more = true;
-        Scanner fileNamein = new Scanner(System.in);
+    public Person(String ID, String fName, String lName, String title, int YOB)
+    {
+        this.ID = ID;
+        this.fName = fName;
+        this.lName = lName;
+        this.title = title;
+        if(YOB>=1940 && YOB<=2000)
+            this.YOB= YOB;
+    }
 
-        ArrayList<String> People = new ArrayList<>();
+    public Person(String fName, String lName, String title, int YOB) {
+        startSeed++;
+        this.ID = "00000" + startSeed;
+        this.fName = fName;
+        this.lName = lName;
+        this.title = title;
+        this.YOB = YOB;
+    }
 
-        // User enter Persons information
-        do {
-            Scanner in = new Scanner(System.in);
-            String person = "";
+    public String fullName(){
+        return fName + " " + lName;
+    }
+    public String formalName(){
+        return title + fullName();
+    }
 
-
-            //System.out.printf("%10s", person);
-
-            ID = SafeInput.getNonZeroLenString(in, "Please enter ID Number") + ", ";
-            person += ID;
-
-            fName = SafeInput.getNonZeroLenString(in, "Please enter First Name") + ", ";
-            person += fName;
-
-            lName = SafeInput.getNonZeroLenString(in, "Please enter Last Name") + ", ";
-            person += lName;
-
-
-            title = SafeInput.getNonZeroLenString(in, "Please enter persons Title (Mr., Mrs., Ms., Dr., etc.)") + ", ";
-            person += title;
-
-            int YOB = SafeInput.getInt(in, "Please enter persons Birth Year");
-            person += YOB;
-
-            People.add(person);
-
-            System.out.println("\n");
-
-            more = SafeInput.getYNConfirm(in, "Would you like to enter another Person");
-        }while(more);
-
-        File workingDirectory = new File(System.getProperty("user.dir"));
-        fileName = SafeInput.getNonZeroLenString(fileNamein, "Please enter file name (Don't include .txt)");
-        Path file = Paths.get(workingDirectory.getPath() + "//src//"+fileName+".txt");
-
-        try
-        {
-
-            OutputStream out =
-                    new BufferedOutputStream(Files.newOutputStream(file, CREATE));
-            BufferedWriter writer =
-                    new BufferedWriter(new OutputStreamWriter(out));
+    public int getAge(){
+        if(YOB>=1940 && YOB <=2000)
+            return Calendar.getInstance().get(Calendar.YEAR) - YOB;
+        return 0;
+    }
+    public int getAge(int year) {
+        return year - YOB;
+    }
+    public String toCSVDataRecord(){
+        return this.ID + ", " + this.fName + ", " + this.lName + ", " + this.title + ", " + this.YOB + "\n";
+    }
 
 
-            for(String person : People )
-            {
-                writer.write(person, 0, person.length());
-                writer.newLine();
-            }
-            writer.close();
-            System.out.println("Data file written:" + fileName + ".txt");
-        }
-        catch (IOException e)
-        {
-            e.printStackTrace();
-        }
+    public String getID() {
+        return ID;
+    }
+
+    public void setID(String ID) {
+        this.ID = ID;
+    }
+
+    public String getfName() {
+        return fName;
+    }
+
+    public void setfName(String fName) {
+        this.fName = fName;
+    }
+
+    public String getlName() {
+        return lName;
+    }
+
+    public void setlName(String lName) {
+        this.lName = lName;
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
+    public int getYOB() {
+        return YOB;
+    }
+
+    public void setYOB(int YOB) {
+        this.YOB = YOB;
+    }
+
+    @Override
+    public String toString() {
+        return "Person{" +
+                "ID='" + ID + '\'' +
+                ", fName='" + fName + '\'' +
+                ", lName='" + lName + '\'' +
+                ", title='" + title + '\'' +
+                ", YOB=" + YOB +
+                '}';
     }
 }
