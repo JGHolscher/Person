@@ -1,3 +1,4 @@
+import java.io.BufferedWriter;
 import java.util.*;
 
 public class Person {
@@ -42,9 +43,13 @@ public class Person {
     public int getAge(int year) {
         return year - YOB;
     }
+
     public String toCSVDataRecord(){
         return this.ID + ", " + this.fName + ", " + this.lName + ", " + this.title + ", " + this.YOB + "\n";
+
     }
+
+
 
 
     public String getID() {

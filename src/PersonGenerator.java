@@ -4,9 +4,19 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
-        import java.util.Scanner;
+import java.util.Scanner;
 
 import static java.nio.file.StandardOpenOption.CREATE;
+
+//what's wrong
+//The file writes and progresses through each entree
+//but it only writes the last entered person to the file
+//why??
+//When writing the test file do you have to enter examples that match some random info you enter?
+
+
+
+
 
 public class PersonGenerator {
     public static void main(String[] args) {
@@ -23,6 +33,8 @@ public class PersonGenerator {
 
         // User enter Persons information
         int YOB;
+        //Person p;
+        ArrayList<Person> People;
         do {
             Scanner in = new Scanner(System.in);
             // ID = SafeInput.getNonZeroLenString(in, "Please enter ID Number");
@@ -36,11 +48,29 @@ public class PersonGenerator {
             YOB = SafeInput.getRangedInt(in, "Please enter persons Birth Year", 1940, 2000);
             //p += YOB;
             more = SafeInput.getYNConfirm(in, "Would you like to enter another Person");
-        } while (more);
-        Person p = new Person(fName, lName, title, YOB);
 
-        ArrayList<Person> People = new ArrayList<Person>();
+            Person p = new Person(fName, lName, title, YOB);
+            People = new ArrayList<Person>();
+            People.add(p);
+
+            System.out.println(People);
+        } while (more);
+
+
+
+
+        /*
+         }while(more);
+        Person p = new Person(fName, lName, title, YOB);
+        ArrayList<Person> People = new ArrayList<>();
         People.add(p);
+
+        p = new Person(fName, lName, title, YOB);
+        People = new ArrayList<>();
+        } while (more);
+        People.add(p);
+
+ */
 
         File workingDirectory = new File(System.getProperty("user.dir"));
         fileName = SafeInput.getNonZeroLenString(fileNamein, "Please enter file name");
@@ -93,8 +123,8 @@ public class PersonGenerator {
             Scanner in = new Scanner(System.in);
 
 
-            ID = SafeInput.getNonZeroLenString(in, "Please enter ID Number") + ", ";
-           ID = read.readLine();
+            //ID = SafeInput.getNonZeroLenString(in, "Please enter ID Number") + ", ";
+         //ID = read.readLine();
             //p += ID;
 
             fName = SafeInput.getNonZeroLenString(in, "Please enter First Name") + ", ";
@@ -114,7 +144,7 @@ public class PersonGenerator {
             YOB = Integer.parseInt(read.readLine());
             //p += YOB;
             //Person.add(p);
-            Person p = new Person(ID, fName, lName, title, YOB);
+            Person p = new Person(fName, lName, title, YOB);
 
             more = SafeInput.getYNConfirm(in, "Would you like to enter another Person");
        // }while(more);
