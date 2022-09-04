@@ -25,26 +25,17 @@ public class PersonGenerator {
         // User enter Persons information
         do {
             Scanner in = new Scanner(System.in);
-
-
-            ID = SafeInput.getNonZeroLenString(in, "Please enter ID Number") + ", ";
+           // ID = SafeInput.getNonZeroLenString(in, "Please enter ID Number");
             //p += ID;
-
-            fName = SafeInput.getNonZeroLenString(in, "Please enter First Name") + ", ";
+            fName = SafeInput.getNonZeroLenString(in, "Please enter First Name");
            // p += fName;
-
-            lName = SafeInput.getNonZeroLenString(in, "Please enter Last Name") + ", ";
+            lName = SafeInput.getNonZeroLenString(in, "Please enter Last Name");
             //p += lName;
-
-
-            title = SafeInput.getNonZeroLenString(in, "Please enter persons Title (Mr., Mrs., Ms., Dr., etc.)") + ", ";
+            title = SafeInput.getNonZeroLenString(in, "Please enter persons Title (Mr., Mrs., Ms., Dr., etc.)");
             //p += title;
-
             int YOB = SafeInput.getRangedInt(in, "Please enter persons Birth Year", 1940, 2000);
             //p += YOB;
-
             Person p = new Person(ID, fName, lName, title, YOB);
-
             more = SafeInput.getYNConfirm(in, "Would you like to enter another Person");
         }while(more);
 
@@ -54,20 +45,19 @@ public class PersonGenerator {
 
         try
         {
-            FileWriter writer = new FileWriter(fileName+".txt");
+            FileWriter writer = new FileWriter(fileName+".csv");
 
-            OutputStream out =
-                    new BufferedOutputStream(Files.newOutputStream(file, CREATE));
-            BufferedWriter writer =
-                    new BufferedWriter(new OutputStreamWriter(out));
+            //OutputStream out =
+              //      new BufferedOutputStream(Files.newOutputStream(file, CREATE));
+           // BufferedWriter writer =
+              //      new BufferedWriter(new OutputStreamWriter(out));
 
-
-            for(Person per : People ) {
-                //writer.write(per.toCSVDataRecord());
+            for(Person p : People ) {
+                writer.write(p.toCSVDataRecord());
                 //writer.write(person, 0, person.length());
-                writer.newLine();
+                //writer.newLine();
             }
-            
+
             writer.close();
             System.out.println("Data file written:" + fileName + ".csv");
         }
