@@ -20,49 +20,50 @@ public class PersonGenerator {
         boolean more = true;
         Scanner fileNamein = new Scanner(System.in);
 
-        ArrayList<Person> People = new ArrayList<Person>();
 
         // User enter Persons information
+        int YOB;
         do {
             Scanner in = new Scanner(System.in);
-           // ID = SafeInput.getNonZeroLenString(in, "Please enter ID Number");
+            // ID = SafeInput.getNonZeroLenString(in, "Please enter ID Number");
             //p += ID;
             fName = SafeInput.getNonZeroLenString(in, "Please enter First Name");
-           // p += fName;
+            // p += fName;
             lName = SafeInput.getNonZeroLenString(in, "Please enter Last Name");
             //p += lName;
             title = SafeInput.getNonZeroLenString(in, "Please enter persons Title (Mr., Mrs., Ms., Dr., etc.)");
             //p += title;
-            int YOB = SafeInput.getRangedInt(in, "Please enter persons Birth Year", 1940, 2000);
+            YOB = SafeInput.getRangedInt(in, "Please enter persons Birth Year", 1940, 2000);
             //p += YOB;
-            Person p = new Person(ID, fName, lName, title, YOB);
             more = SafeInput.getYNConfirm(in, "Would you like to enter another Person");
-        }while(more);
+        } while (more);
+        Person p = new Person(fName, lName, title, YOB);
+
+        ArrayList<Person> People = new ArrayList<Person>();
+        People.add(p);
 
         File workingDirectory = new File(System.getProperty("user.dir"));
         fileName = SafeInput.getNonZeroLenString(fileNamein, "Please enter file name");
-        Path file = Paths.get(workingDirectory.getPath() + "//src//"+fileName+".txt");
+        Path file = Paths.get(workingDirectory.getPath() + "//src//" + fileName + ".txt");
 
-        try
-        {
-            FileWriter writer = new FileWriter(fileName+".csv");
 
-            //OutputStream out =
-              //      new BufferedOutputStream(Files.newOutputStream(file, CREATE));
-           // BufferedWriter writer =
-              //      new BufferedWriter(new OutputStreamWriter(out));
+        try {
+            //FileWriter writer = new FileWriter(fileName+".txt");
 
-            for(Person p : People ) {
-                writer.write(p.toCSVDataRecord());
-                //writer.write(person, 0, person.length());
-                //writer.newLine();
+            OutputStream out =
+                    new BufferedOutputStream(Files.newOutputStream(file, CREATE));
+            BufferedWriter writer =
+                    new BufferedWriter(new OutputStreamWriter(out));
+
+            for (Person per : People) {
+                // writer.write(per, 0, per.length());
+                writer.write(per.toCSVDataRecord());
+                // writer.newLine();
             }
 
             writer.close();
-            System.out.println("Data file written:" + fileName + ".csv");
-        }
-        catch (IOException e)
-        {
+            System.out.println("Data file written:" + fileName + ".txt");
+        } catch (IOException e) {
             e.printStackTrace();
         }
     }
