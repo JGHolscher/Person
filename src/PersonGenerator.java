@@ -50,20 +50,6 @@ public class PersonGenerator {
         } while (more);
 
 
-
-
-       /*  }while(more);
-        Person p = new Person(fName, lName, title, YOB);
-        ArrayList<Person> People = new ArrayList<>();
-        People.add(p);
-
-        p = new Person(fName, lName, title, YOB);
-        People = new ArrayList<>();
-        } while (more);
-        People.add(p);
-        */
-
-
         File workingDirectory = new File(System.getProperty("user.dir"));
         fileName = SafeInput.getNonZeroLenString(fileNamein, "Please enter file name");
         Path file = Paths.get(workingDirectory.getPath() + "//src//" + fileName + ".txt");
