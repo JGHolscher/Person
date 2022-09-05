@@ -8,6 +8,8 @@ import java.util.Scanner;
 
 import static java.nio.file.StandardOpenOption.CREATE;
 
+
+
 public class PersonGenerator {
     public static void main(String[] args) {
         JFileChooser chooser = new JFileChooser();

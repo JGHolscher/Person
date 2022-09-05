@@ -1,4 +1,5 @@
 
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.util.Calendar;
@@ -8,7 +9,7 @@ class PersonTest {
     Person p1, p2, p3;
 
 
-    @org.junit.jupiter.api.BeforeEach
+    @BeforeEach
     void setUp() {
         Person.startSeed(0);
         p1 = new Person("Sarah", "Smith", "Ms.", 1998);
