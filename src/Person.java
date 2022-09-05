@@ -1,4 +1,3 @@
-import java.io.BufferedWriter;
 import java.util.*;
 
 public class Person {
@@ -9,9 +8,9 @@ public class Person {
     int YOB = 0;
     private static int startSeed = 0;
 
-    public Person(String ID, String fName, String lName, String title, int YOB)
+    public Person(int ID, String fName, String lName, String title, int YOB)
     {
-        this.ID = ID;
+        this.ID = String.valueOf(ID);
         this.fName = fName;
         this.lName = lName;
         this.title = title;
@@ -26,6 +25,13 @@ public class Person {
         this.lName = lName;
         this.title = title;
         this.YOB = YOB;
+    }
+
+    public static void startSeed(int i) {
+    }
+
+    public static int startSeed() {
+        return 0;
     }
 
     public String fullName(){
@@ -56,8 +62,8 @@ public class Person {
         return ID;
     }
 
-    public void setID(String ID) {
-        this.ID = ID;
+    public void setID(int ID) {
+        this.ID = String.valueOf(ID);
     }
 
     public String getfName() {
@@ -92,6 +98,7 @@ public class Person {
         this.YOB = YOB;
     }
 
+
     @Override
     public String toString() {
         return "Person{" +
@@ -103,5 +110,5 @@ public class Person {
                 '}';
     }
 
-
 }
+

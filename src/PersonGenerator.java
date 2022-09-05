@@ -8,23 +8,13 @@ import java.util.Scanner;
 
 import static java.nio.file.StandardOpenOption.CREATE;
 
-//what's wrong
-//The file writes and progresses through each entree
-//but it only writes the last entered person to the file
-//why??
-//When writing the test file do you have to enter examples that match some random info you enter?
-
-
-
-
-
 public class PersonGenerator {
     public static void main(String[] args) {
         JFileChooser chooser = new JFileChooser();
-        String ID = "";
-        String fName = "";
-        String lName = "";
-        String title = "";
+        String ID;
+        String fName;
+        String lName;
+        String title;
 
         String fileName = "";
         boolean more = true;
@@ -33,34 +23,34 @@ public class PersonGenerator {
 
         // User enter Persons information
         int YOB;
-        //Person p;
-        ArrayList<Person> People;
+
+        ArrayList<Person> People = new ArrayList<Person>();
         do {
             Scanner in = new Scanner(System.in);
-            // ID = SafeInput.getNonZeroLenString(in, "Please enter ID Number");
-            //p += ID;
+
             fName = SafeInput.getNonZeroLenString(in, "Please enter First Name");
-            // p += fName;
+
             lName = SafeInput.getNonZeroLenString(in, "Please enter Last Name");
-            //p += lName;
+
             title = SafeInput.getNonZeroLenString(in, "Please enter persons Title (Mr., Mrs., Ms., Dr., etc.)");
-            //p += title;
+
             YOB = SafeInput.getRangedInt(in, "Please enter persons Birth Year", 1940, 2000);
-            //p += YOB;
+
             more = SafeInput.getYNConfirm(in, "Would you like to enter another Person");
 
-            Person p = new Person(fName, lName, title, YOB);
-            People = new ArrayList<Person>();
-            People.add(p);
 
+            Person p = new Person(fName, lName, title, YOB);
+
+            People.add(p);
             System.out.println(People);
+
+
         } while (more);
 
 
 
 
-        /*
-         }while(more);
+       /*  }while(more);
         Person p = new Person(fName, lName, title, YOB);
         ArrayList<Person> People = new ArrayList<>();
         People.add(p);
@@ -69,8 +59,8 @@ public class PersonGenerator {
         People = new ArrayList<>();
         } while (more);
         People.add(p);
+        */
 
- */
 
         File workingDirectory = new File(System.getProperty("user.dir"));
         fileName = SafeInput.getNonZeroLenString(fileNamein, "Please enter file name");
@@ -78,7 +68,6 @@ public class PersonGenerator {
 
 
         try {
-            //FileWriter writer = new FileWriter(fileName+".txt");
 
             OutputStream out =
                     new BufferedOutputStream(Files.newOutputStream(file, CREATE));
@@ -98,82 +87,3 @@ public class PersonGenerator {
         }
     }
 }
-/*import javax.swing.*;
-        import java.io.*;
-import java.util.ArrayList;
-        import java.util.Scanner;
-
-public class PersonGenerator {
-    public static void main(String[] args) {
-        BufferedReader read = new BufferedReader(new InputStreamReader(System.in));
-        JFileChooser chooser = new JFileChooser();
-        String ID = "";
-        String fName = "";
-        String lName = "";
-        String title = "";
-
-        String fileName = "";
-        boolean more = true;
-        Scanner fileNamein = new Scanner(System.in);
-
-        ArrayList<Person> People = new ArrayList<Person>();
-
-        // User enter Persons information
-       // do {
-            Scanner in = new Scanner(System.in);
-
-
-            //ID = SafeInput.getNonZeroLenString(in, "Please enter ID Number") + ", ";
-         //ID = read.readLine();
-            //p += ID;
-
-            fName = SafeInput.getNonZeroLenString(in, "Please enter First Name") + ", ";
-            fName = read.readLine();
-            //p += fName;
-
-            lName = SafeInput.getNonZeroLenString(in, "Please enter Last Name") + ", ";
-            lName = read.readLine();
-            //p += lName;
-
-
-            title = SafeInput.getNonZeroLenString(in, "Please enter persons Title (Mr., Mrs., Ms., Dr., etc.)") + ", ";
-            title = read.readLine();
-            //p += title;
-
-            int YOB = SafeInput.getRangedInt(in, "Please enter persons Birth Year",1960, 2000);
-            YOB = Integer.parseInt(read.readLine());
-            //p += YOB;
-            //Person.add(p);
-            Person p = new Person(fName, lName, title, YOB);
-
-            more = SafeInput.getYNConfirm(in, "Would you like to enter another Person");
-       // }while(more);
-
-        //File workingDirectory = new File(System.getProperty("user.dir"));
-        fileName = SafeInput.getNonZeroLenString(fileNamein, "Please enter file name");
-        //Path file = Paths.get(workingDirectory.getPath() + "//src//"+fileName+".csv");
-
-        try
-        {
-            FileWriter writer = new FileWriter(fileName+".csv", more);
-           // OutputStream out =
-              //     new BufferedOutputStream(Files.newOutputStream(file, CREATE));
-         //   BufferedWriter writer =
-             //       new BufferedWriter(new OutputStreamWriter(out));
-
-
-            for(Person p2 : People ) {
-                writer.write(p2.toCSVDataRecord());
-            }
-
-            writer.close();
-            System.out.println("Data file written:" + fileName + ".csv");
-        }
-        catch (IOException e)
-        {
-            e.printStackTrace();
-        }
-    }
-}
-
- */
